@@ -31,12 +31,16 @@ pipeline {
             agent {
                 label 'linux&&jdk8'
             }
+            environment {
+                DOCKER_HUB_AUTH = credentials('docker-hub-clank')
+            }
             when {
                 branch 'master'
             }
             steps {
                 checkout scm
                 sshagent(['jenkins-worker-ssh-key']) {
+                    sh "docker login --username ${DOCKER_HUB_AUTH_USR} --password ${DOCKER_HUB_AUTH_PSW}"
                     sh 'make release'
                 }
                 milestone label: 'build', ordinal: 2
