@@ -32,7 +32,7 @@ pipeline {
                 label 'linux&&jdk8'
             }
             environment {
-                DOCKER_HUB_AUTH = credentials('docker-hub-clank')
+                DOCKER_HUB_AUTH = credentials('blume-jenkins-bot-docker-hub')
             }
             when {
                 branch 'master'
